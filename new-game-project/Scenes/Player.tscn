@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://djac8rujuop5n"]
+
+[ext_resource type="Script" uid="uid://cdqfkthral1de" path="res://Scripts/player.gd" id="1_kyqiw"]
+[ext_resource type="Texture2D" uid="uid://bmvhygsqeq8m5" path="res://Assets/Pumpkin game/Pumpkin sprites/1000127073-removebg-preview.png" id="1_rpqav"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kyqiw"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("1_kyqiw")
+
+[node name="Mr_Pumpkin" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(-2, -2)
+scale = Vector2(0.064, 0.064)
+texture = ExtResource("1_rpqav")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(-2, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_kyqiw")
