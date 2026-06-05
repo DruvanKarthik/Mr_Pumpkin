@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://brxaptfs1kfog"]
+[gd_scene load_steps=4 format=3 uid="uid://brxaptfs1kfog"]
 
 [ext_resource type="Script" uid="uid://b5ymr2tf0b7g0" path="res://Scripts/background.gd" id="1_pojwb"]
 [ext_resource type="PackedScene" uid="uid://djac8rujuop5n" path="res://Scenes/Player.tscn" id="1_sn1xx"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_pojwb"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_pojwb")
@@ -18,4 +20,12 @@ position = Vector2(45, 146)
 wait_time = 0.5
 autostart = true
 
+[node name="ScoreLabel" type="Label" parent="."]
+offset_right = 65.0
+offset_bottom = 23.0
+scale = Vector2(0.5, 0.5)
+text = "Score: 0"
+label_settings = SubResource("LabelSettings_pojwb")
+
+[connection signal="potion_collected" from="Player" to="." method="_on_player_potion_collected"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

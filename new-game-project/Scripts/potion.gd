@@ -1,5 +1,12 @@
 extends Area2D
-var speed = 300
 
-func _process(delta: float) -> void:
-	position.y += delta*speed 
+@export var speed = 150.0
+
+func _ready():
+	add_to_group("potions")
+
+func _process(delta):
+	position.y += speed * delta
+
+	if position.y > get_viewport_rect().size.y + 50:
+		queue_free()
