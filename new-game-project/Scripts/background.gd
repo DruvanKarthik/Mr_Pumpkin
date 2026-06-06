@@ -6,8 +6,8 @@ var score = 0
 
 @onready var score_label = $ScoreLabel
 @onready var player = $Player
-@onready var health_label = $HealthLabel
-@onready var lives_label = $LivesLabel
+@onready var health_label = $HealthLabel #adding the health label
+@onready var lives_label = $LivesLabel #adding the lives label
 
 
 func _ready():
@@ -34,4 +34,4 @@ func _on_potion_collected():
 	update_score()
 
 func update_score():
-	score_label.text = "Score: " + str(score)
+	score_label.text = "Score: " + str(score) # updating score
