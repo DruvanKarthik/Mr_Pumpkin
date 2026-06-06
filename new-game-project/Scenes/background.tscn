@@ -21,11 +21,29 @@ wait_time = 0.5
 autostart = true
 
 [node name="ScoreLabel" type="Label" parent="."]
-offset_right = 65.0
-offset_bottom = 23.0
-scale = Vector2(0.5, 0.5)
+offset_left = 61.0
+offset_top = 3.0
+offset_right = 126.0
+offset_bottom = 26.0
+scale = Vector2(0.4, 0.4)
 text = "Score: 0"
 label_settings = SubResource("LabelSettings_pojwb")
+
+[node name="HealthLabel" type="Label" parent="."]
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 60.0
+offset_bottom = 25.0
+scale = Vector2(0.4, 0.4)
+text = "health :"
+
+[node name="LivesLabel" type="Label" parent="."]
+offset_left = 1.0
+offset_top = 11.0
+offset_right = 58.0
+offset_bottom = 34.0
+scale = Vector2(0.4, 0.4)
+text = "Lives: 5"
 
 [connection signal="potion_collected" from="Player" to="." method="_on_player_potion_collected"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

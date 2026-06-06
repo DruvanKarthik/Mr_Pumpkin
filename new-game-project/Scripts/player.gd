@@ -15,4 +15,4 @@ func _physics_process(delta):
 func _on_area_2d_area_entered(area):
 	if area.is_in_group("potions"):
 		area.queue_free()
-		emit_signal("potion_collected")
+		emit_signal("potion_collected") # collision detection for collecting score for the potions
