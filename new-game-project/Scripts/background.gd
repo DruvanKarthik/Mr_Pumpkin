@@ -6,6 +6,9 @@ var score = 0
 
 @onready var score_label = $ScoreLabel
 @onready var player = $Player
+@onready var health_label = $HealthLabel
+@onready var lives_label = $LivesLabel
+
 
 func _ready():
 	randomize()
