@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://c40eso3try3da"]
+
+[ext_resource type="Script" uid="uid://b2hp3x3q0dbh" path="res://Scripts/potion.gd" id="1_17bru"]
+[ext_resource type="Texture2D" uid="uid://cwtl5pxify4h2" path="res://Assets/Pumpkin game/Potions sprite/Green potion/1000127571-removebg-preview.png" id="2_17bru"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nymo1"]
+radius = 4.0
+height = 14.0
+
+[node name="potion" type="Area2D" groups=["potion"]]
+script = ExtResource("1_17bru")
+
+[node name="1000127571-removebg-preview" type="Sprite2D" parent="."]
+scale = Vector2(0.024, 0.024)
+texture = ExtResource("2_17bru")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2.27374e-13, 1.13687e-13)
+shape = SubResource("CapsuleShape2D_nymo1")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

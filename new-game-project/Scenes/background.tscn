@@ -45,5 +45,13 @@ offset_bottom = 34.0
 scale = Vector2(0.4, 0.4)
 text = "Lives: 5"
 
+[node name="ShieldLabel" type="Label" parent="."]
+offset_left = 1.0
+offset_top = 20.0
+offset_right = 49.0
+offset_bottom = 43.0
+scale = Vector2(0.4, 0.4)
+text = "Sheild : "
+
 [connection signal="potion_collected" from="Player" to="." method="_on_player_potion_collected"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
