@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cg8syai8cu7is"
-path="res://.godot/imported/1000127573-removebg-preview.png-2c5ab57dc2bf4a916c43e803c1e22f3f.ctex"
+uid="uid://bea6epu626ouu"
+path="res://.godot/imported/1000127574-removebg-preview.png-0c3805523552fb19bf20b7e29f8472a4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Pumpkin game/Potions sprite/Back potion/1000127573-removebg-preview.png"
-dest_files=["res://.godot/imported/1000127573-removebg-preview.png-2c5ab57dc2bf4a916c43e803c1e22f3f.ctex"]
+source_file="res://Assets/Pumpkin game/Potions sprite/Dark green potion/1000127574-removebg-preview.png"
+dest_files=["res://.godot/imported/1000127574-removebg-preview.png-0c3805523552fb19bf20b7e29f8472a4.ctex"]
 
 [params]
 
