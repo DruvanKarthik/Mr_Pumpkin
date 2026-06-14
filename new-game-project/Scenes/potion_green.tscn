@@ -9,6 +9,7 @@ height = 14.0
 
 [node name="potion" type="Area2D" groups=["potion"]]
 script = ExtResource("1_17bru")
+potion_type = "green"
 
 [node name="1000127571-removebg-preview" type="Sprite2D" parent="."]
 scale = Vector2(0.024, 0.024)

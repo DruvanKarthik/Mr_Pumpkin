@@ -1,7 +1,7 @@
 extends Area2D
 
 @export var potion_type: String = "black"
-@export var speed = 150.0
+@export var speed = 80.0
 
 func _ready():
 	add_to_group("potions")
