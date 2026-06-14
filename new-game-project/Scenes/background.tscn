@@ -39,13 +39,13 @@ offset_bottom = 32.0
 scale = Vector2(0.34, 0.34)
 text = "Lives:"
 
-[node name="ShieldTimerLabel" type="Label" parent="CanvasLayer"]
+[node name="StatusLabel" type="Label" parent="CanvasLayer"]
 offset_left = 32.0
 offset_top = 18.0
 offset_right = 92.0
 offset_bottom = 41.0
 scale = Vector2(0.34, 0.34)
-text = "Sheild : "
+text = "Status: "
 
 [connection signal="potion_collected" from="Player" to="." method="_on_player_potion_collected"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
