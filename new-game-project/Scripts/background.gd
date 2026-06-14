@@ -17,18 +17,22 @@ var score = 0
 var lives = 5
 var shield_countdown = 0.0
 var shield_active = false
+var speed_countdown = 0.0
+var speed_active = false
+var size_countdown = 0.0
+var size_active = false
 
-@onready var score_label = $CanvasLayer/ScoreLabel
-@onready var lives_label = $CanvasLayer/LivesLabel
-@onready var shield_timer_label = $CanvasLayer/ShieldTimerLabel
-@onready var player = $Player
-@onready var spawn_timer = $Timer
+@onready var score_label  = $CanvasLayer/ScoreLabel
+@onready var lives_label  = $CanvasLayer/LivesLabel
+@onready var status_label = $CanvasLayer/StatusLabel
+@onready var player       = $Player
+@onready var spawn_timer  = $Timer
 
 func _ready():
 	randomize()
 
 	if player == null:
-		print("ERROR: Player node not found!")
+		print("ERROR: Player not found!")
 		return
 	if score_label == null:
 		print("ERROR: ScoreLabel not found!")
@@ -36,19 +40,20 @@ func _ready():
 	if lives_label == null:
 		print("ERROR: LivesLabel not found!")
 		return
-	if shield_timer_label == null:
-		print("ERROR: ShieldTimerLabel not found!")
+	if status_label == null:
+		print("ERROR: StatusLabel not found!")
 		return
 
 	player.potion_collected.connect(_on_potion_collected)
 	player.lose_life.connect(_on_lose_life)
 	player.shield_ended.connect(_on_shield_ended)
+	player.speed_ended.connect(_on_speed_ended)
+	player.size_ended.connect(_on_size_ended)
 
-	shield_timer_label.visible = false
+	status_label.visible = false
 	update_score()
 	update_lives()
 
-	# set first spawn time
 	spawn_timer.wait_time = randf_range(1.5, 3.0)
 	spawn_timer.start()
 
@@ -58,36 +63,52 @@ func _process(delta):
 		if shield_countdown <= 0:
 			shield_countdown = 0
 			shield_active = false
-			shield_timer_label.visible = false
-		else:
-			shield_timer_label.text = "🛡 Shield: " + str(snapped(shield_countdown, 0.1)) + "s"
+
+	if speed_active:
+		speed_countdown -= delta
+		if speed_countdown <= 0:
+			speed_countdown = 0
+			speed_active = false
+
+	if size_active:
+		size_countdown -= delta
+		if size_countdown <= 0:
+			size_countdown = 0
+			size_active = false
+
+	_update_status()
+
+func _update_status():
+	var lines = []
+	if shield_active and shield_countdown > 0:
+		lines.append("🛡 Shield: " + str(snapped(shield_countdown, 0.1)) + "s")
+	if speed_active and speed_countdown > 0:
+		lines.append("💨 Speed: " + str(snapped(speed_countdown, 0.1)) + "s")
+	if size_active and size_countdown > 0:
+		lines.append("🟫 Size: " + str(snapped(size_countdown, 0.1)) + "s")
+
+	if lines.size() > 0:
+		status_label.visible = true
+		status_label.text = "\n".join(lines)
+	else:
+		status_label.visible = false
 
 func _on_timer_timeout():
-	# pick random potion type
 	var random_type = potion_types[randi() % potion_types.size()]
 	var new_potion = potion_scenes[random_type].instantiate()
-
-	# add to scene first so viewport is accessible
 	add_child(new_potion)
 
-	# get screen size
 	var screen = get_viewport_rect().size
 	var margin = 40
-
-	# spawn at random x across full screen width, random y above screen
 	new_potion.position = Vector2(
 		randf_range(margin, screen.x - margin),
 		randf_range(-100, -30)
 	)
 
-	# randomize next spawn gap so potions never bunch up
 	spawn_timer.wait_time = randf_range(1.5, 3.0)
 	spawn_timer.start()
 
 func _on_potion_collected(potion_type: String):
-	print("=== POTION COLLECTED: ", potion_type, " ===")
-	print("Lives before: ", lives)
-	print("Is shielded: ", player.is_shielded)
 	player.apply_potion(potion_type)
 
 	match potion_type:
@@ -99,17 +120,16 @@ func _on_potion_collected(potion_type: String):
 			lives += 1
 			update_lives()
 		"light_blue":
-			print("Light blue logic hit!")
 			if not player.is_shielded:
 				lives -= 1
-				print("Lives after: ", lives)
 				update_lives()
-			else:
-				print("Player is shielded, no life lost")
 		"brown":
 			score += 5
+			size_active = true
+			size_countdown = 10.0
 		"dark_green":
-			pass
+			speed_active = true
+			speed_countdown = 10.0
 		"red":
 			if player.has_brown:
 				score += 10
@@ -117,11 +137,8 @@ func _on_potion_collected(potion_type: String):
 				lives -= 1
 				update_lives()
 		"orange":
-			print("Orange logic hit! Activating shield timer")
 			shield_active = true
 			shield_countdown = 10.0
-			shield_timer_label.visible = true
-			shield_timer_label.text = "🛡 Shield: 10s"
 
 	update_score()
 
@@ -136,7 +153,12 @@ func _on_lose_life():
 
 func _on_shield_ended():
 	shield_active = false
-	shield_timer_label.visible = false
+
+func _on_speed_ended():
+	speed_active = false
+
+func _on_size_ended():
+	size_active = false
 
 func update_score():
 	score_label.text = "Score: " + str(score)
